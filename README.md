@@ -24,7 +24,7 @@ A configuração inicial é um objeto com os seguintes parâmetros (valores dos 
 
 - `url: "my URL",` - Obrigatório: String com o URL que será requisitada (todo o texto até imediatamente antes dos parâmetros)
 
--`parameters : [ { "nomeParâmetro": "ValorBuscado" } ],` - Opcional: Parâmetro passados para busca. O formato deve ser exatamente igual ao do exemplo: Uma array com cada elemento sendo um Objeto com um único parâmetro dentro.
+- `parameters : [ { "nomeParâmetro": "ValorBuscado" } ],` - Opcional: Parâmetro passados para busca. O formato deve ser exatamente igual ao do exemplo: Uma array com cada elemento sendo um Objeto com um único parâmetro dentro.
 
 - `shouldRun: true/false,` Opcional: Valor booleano que informa se a busca deve ocorrer ou não (e em caso de erro nos parametros url e shouldRun é passado automaticamente para false. Se não informado é setado como true
 
@@ -38,8 +38,12 @@ A configuração inicial é um objeto com os seguintes parâmetros (valores dos 
 
 - `doWhenFail: (error, rawAnswer) => <h1> {error.message} </h1>` Opcional: Função que retorna Elemento JSX que deve ser apresentado quando o Hook retorna com falha na busca do dado, os argumento da função são respectivamente a mensagem de erro e o objeto retornado (quando existente).
 
+- `errorAPIvalue:  [ "Response", "False", "Error"] ,` Opcional: Quando o erro está na resposta do API o Fecth não indentifica como erro (porque retornou um JSON da API). Essa propriedade é para identificar esses erros específicos da API como erros (e apresentar o mesmo valor de quando o Fetch apresenta um erro). O formato é uma array com 3 valores: O nome do propriedade no objeto que contém a informação que deu erro, o valor dessa propriedade e por último a propriedade que apresenta a mensagem de erro. Caso não seja passado é assumido que toda resposta da API é válida.
+
 ### Exemplos
 
-[Modelo](https://github.com/PedroMarianoAlmeida/use-fetch-custom-hook) - Esse react app que foi usado para elaborar o hook, a aplicação não tem muita utilizada mas pode server de modelo de configuração.
+- [Movie Finder](https://github.com/PedroMarianoAlmeida/movie-finder-porfolio) - Ver componentes ListMoviesFounded.js e MovieDetails.js
+
+- [Modelo](https://github.com/PedroMarianoAlmeida/use-fetch-custom-hook) - Esse react app que foi usado para elaborar a versão inicial do hook, a aplicação não tem muita utilizada mas pode server de modelo de configuração.
 
 
