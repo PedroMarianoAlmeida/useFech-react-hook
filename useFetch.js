@@ -71,6 +71,7 @@ const useFetch = (configurationParam) => {
             if (configuration.logResponses) console.log("Status: Fetching");
             setAnswer(configuration.doWhenFetching);
             let result;
+            let customizeError = false;
             try{
                 const adress = fullAdress(configuration.url, configuration.parameters);
                 if (configuration.logResponses) console.log( "Adress fetching: ", adress );
@@ -78,6 +79,16 @@ const useFetch = (configurationParam) => {
                 if(!response.ok) throw Error(response.statusText);
     
                 result = await response.json();
+                
+                if(Object.keys(configuration).includes("errorAPIvalue") ) {
+                    if(result[configuration.errorAPIvalue[0]] === configuration.errorAPIvalue[1] ) {
+                        customizeError = true;
+                        console.log("Customize Error: ", result[configuration.errorAPIvalue[2]])
+                        setAnswer( configuration.doWhenFail( result ) );
+                        throw Error();                    
+                    }
+                }
+                
                 if (configuration.logResponses) {
                     console.log( "Raw Fetch: ", result );
                     console.log( "Staus: Sucess");
@@ -85,13 +96,15 @@ const useFetch = (configurationParam) => {
                 
                 setAnswer( configuration.doWhenSuccess( result ) );
             }
-            catch (err){
-                if (configuration.logResponses) {
-                    console.log( "Fetch error: ", err.message );
-                    console.log( "Staus: Fail" );
-                }
-                setAnswer( configuration.doWhenFail( err, result ) );
-            }      
+            catch (err){                                 
+                if (!customizeError) {
+                    if (configuration.logResponses) {
+                        console.log( "Fetch error: ", err.message );
+                        console.log( "Staus: Fail");
+                    }    
+                    setAnswer( configuration.doWhenFail( err ) );
+                }                  
+            }     
           }
 
         checkingUserInput();
