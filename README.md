@@ -2,6 +2,12 @@
 Um react custom hook com objetivo de abstrair toda a etapa de requisitar dados para API externas
 
 ## Como usar:
+
+### Instalação:
+- Baixar arquivo useFetch.js
+- Inserir no seu projeto
+- Importar para o arquivo em que será usado
+
 ### Formato da Declaração
 
 Configuração inicial semelhante ao useState:
